@@ -19,9 +19,9 @@ const RainEffect = () => {
       setRaindropCount(prevCount => prevCount + 1);
     };
 
-    //? want heart to rain instead of line
+    //? want heart to rain instead of lines
   
-    // const createRaindrop = () => {
+    //   const createRaindrop = () => {
     //   const heart = document.createElement("i");
     //   heart.className = "fa-solid fa-heart raindrop";
     //   heart.style.left = `${Math.random() * 100}vw`;

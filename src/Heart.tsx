@@ -1,23 +1,34 @@
 import { useEffect, useState } from "react";
 import "./App.css";
+import { useClerk } from "@clerk/clerk-react";
 
 export type HeartPropsType = {
   onHeartClick: () => void;
+  onNoClick: () => void;
 };
 
-function Heart({ onHeartClick }: HeartPropsType) {
+function Heart({ onHeartClick, onNoClick }: HeartPropsType) {
   const [balloonBurst, setBalloonBurst] = useState(false);
   const [touchHeart, setTouchHeart] = useState(false);
+  const [showButton, setShowButton] = useState(false);
+
+  const { signOut } = useClerk()
 
   const handleHeartClick = () => {
     setBalloonBurst(true);
     onHeartClick();
   };
 
+  const handleNoClick = () => {
+    onNoClick();
+    signOut();
+    document.exitFullscreen();
+  }
+
   useEffect(() => {
     setTimeout(() => {
       setTouchHeart(true);
-    }, 5000);
+    }, 3000);
   }, []);
 
   return (
@@ -25,17 +36,24 @@ function Heart({ onHeartClick }: HeartPropsType) {
       {balloonBurst ? (
         <>
           <div className="flex flex-col">
-            <img src="/assets/emoji.gif" alt="Will you?" />
-            <div className="flex gap-3 justify-between mt-5 mx-5 lg:mx-0">
-              <button className="bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-700 hover:to-blue-700 text-white font-bold py-2 px-4 rounded">
-                Yes
-              </button>
-              <button 
-                className="bg-gradient-to-r from-gray-400 to-blue-400 hover:from-gray-500 hover:to-blue-500 text-white font-bold py-2 px-4 rounded"
-              >
-                No
-              </button>
-            </div>
+            <img
+              src="/assets/emoji.gif"
+              alt="Will you?"
+              onLoad={() => setShowButton(true)}
+            />
+            {showButton && (
+              <div className="flex gap-3 justify-between mt-5 mx-5 lg:mx-0">
+                <button className="bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-700 hover:to-blue-700 text-white font-bold py-2 px-4 rounded">
+                  Yes
+                </button>
+                <button 
+                    className="bg-gradient-to-r from-gray-400 to-blue-400 hover:from-gray-500 hover:to-blue-500 text-white font-bold py-2 px-4 rounded"
+                    onClick={handleNoClick}
+                >
+                  No
+                </button>
+              </div>
+            )}
           </div>
         </>
       ) : (
