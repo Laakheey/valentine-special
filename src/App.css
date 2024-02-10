@@ -1,0 +1,71 @@
+.heart {
+  height: 70px;
+  width: 70px;
+  background: #f20044;
+  position: relative;
+  transform: rotate(-45deg);
+  box-shadow: -10px 10px 90px #f20044;
+  animation: heart 0.6s linear infinite;
+}
+
+.heart::before {
+  content: "";
+  position: absolute;
+  height: 70px;
+  width: 70px;
+  background: #f20044;
+  top: -50%;
+  border-radius: 50px;
+  box-shadow: -10px -10px 90px #f20044;
+}
+
+.heart::after {
+  content: "";
+  position: absolute;
+  height: 70px;
+  width: 70px;
+  background: #f20044;
+  right: -50%;
+  border-radius: 50px;
+  box-shadow: 10px 10px 90px #f20044;
+}
+
+@keyframes heart {
+  0% {
+    transform: rotate(-45deg) scale(1.07);
+  }
+  70% {
+    transform: rotate(-45deg) scale(1);
+  }
+  100% {
+    transform: rotate(-45deg) scale(0.8);
+  }
+}
+
+.raindrop {
+  position: absolute;
+  top: -20px;
+  width: 2px;
+  height: 20px;
+  background-color: #fff;
+  animation: falling linear infinite;
+}
+
+/*? want heart to rain instead of line */
+
+/* .raindrop {
+  position: absolute;
+  top: -20px;
+  color: red;
+  font-size: 20px;
+  animation: falling linear infinite;
+} */
+
+@keyframes falling {
+  from {
+    transform: translateY(-20px);
+  }
+  to {
+    transform: translateY(100vh);
+  }
+}
